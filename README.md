@@ -26,6 +26,8 @@ This project was developed during the IBM Edunet Workshop, where I learned to:
 - Create responsive and dynamic UI/UX with Tailwind CSS and JavaScript
 - Work with persistent browser storage (localStorage/sessionStorage)
 
+- 🌍 Live Demo 🚀 Hosted Here: (http://ashu-chabot.rf.gd/)
+
 ## 📸 Demo
 
 ![image](https://github.com/user-attachments/assets/6f726ba2-1f36-40dc-bc33-5bbf732a4a2d)
