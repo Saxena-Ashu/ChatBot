@@ -17,9 +17,7 @@ This is a web-based AI chatbot built using IBM Watson Assistant, HTML, Tailwind 
 - Tailwind CSS
 - IBM Watson Assistant (cloud integration)
 
-## 🚀 Getting Started
 
-Just open the `index.html` file in a browser to launch the chatbot. No server needed!
 
 ## 🎓 Learning Outcome
 
@@ -30,9 +28,10 @@ This project was developed during the IBM Edunet Workshop, where I learned to:
 
 ## 📸 Demo
 
-![screenshot](path-to-screenshot-if-any)
+![image](https://github.com/user-attachments/assets/6f726ba2-1f36-40dc-bc33-5bbf732a4a2d)
+
 
 ## 👤 Author
 
 **Ashu Saxena**  
-Feel free to connect on [LinkedIn](https://www.linkedin.com/in/YOUR_PROFILE)
+
