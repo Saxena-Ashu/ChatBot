@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Made by ASHU SAXENA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: transparent;
+      background-image: radial-gradient(white 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveStars 30s linear infinite;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: -1000px 1000px; }
+    }
+
+    @keyframes shootingStar {
+      0% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+      }
+      70% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(1000px) translateY(300px);
+        opacity: 0;
+      }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 2px cyan;
+      animation: shootingStar 3s linear infinite;
+      opacity: 0;
+    }
+
+    nav a {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    nav a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.4), transparent);
+      transition: all 0.6s ease;
+    }
+
+    nav a:hover::before {
+      left: 100%;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0%;
+      height: 2px;
+      background-color: cyan;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #67e8f9;
+      transform: translateY(-2px);
+    }
+
+    nav a svg {
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover svg {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .logo-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(to right, #00ffff, #1e90ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 5s infinite linear, float 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .chat-window {
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      min-width: 300px;
+      min-height: 200px;
+      width: 600px;
+      height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid #00ffff;
+      background-color: #0f172a;
+      color: white;
+      z-index: 100;
+      box-shadow: 0 0 20px #00ffff99;
+      resize: both;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .chat-window.maximized {
+      top: 80px !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: calc(100vh - 80px) !important;
+      border-radius: 0;
+      resize: none;
+    }
+
+    .chat-header {
+      background-color: #1e293b;
+      padding: 8px 16px;
+      cursor: move;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .controls button {
+      background-color: #1e40af;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: #3b82f6;
+      transform: scale(1.1);
+    }
+
+    .controls .close-btn {
+      background-color: #b91c1c;
+    }
+
+    .controls .close-btn:hover {
+      background-color: #ef4444;
+    }
+
+    .chat-body {
+      width: 100%;
+      height: calc(100% - 48px);
+      padding: 12px;
+      overflow: auto;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(-50px); }
+      50% { opacity: 0.5; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7); }
+      70% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(0, 255, 255, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+    }
+
+    @keyframes buttonGlow {
+      0% { box-shadow: 0 0 5px 0px rgba(0, 255, 255, 0.7); }
+      50% { box-shadow: 0 0 20px 5px rgba(0, 255, 255, 0.9); }
+      100% { box-shadow: 0 0 5px 0px rgba(0, 255, 255, 0.7); }
+    }
+
+    .fade-in { animation: fadeIn 0.8s ease-out; }
+    .slide-in { 
+      animation: slideIn 1.2s ease-out, float 4s ease-in-out infinite 1.2s; 
+    }
+    .pulse {
+      animation: pulse 2s infinite, buttonGlow 3s infinite;
+    }
+
+    /* Visitor Counter Styles */
+    .visitor-counter {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #00ffff;
+      border-radius: 12px;
+      padding: 10px 15px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      color: #00ffff;
+      z-index: 50;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .visitor-counter:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+
+    .visitor-counter svg {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+      fill: #00ffff;
+    }
+
+    .counter-number {
+      font-weight: bold;
+      margin-left: 5px;
+      background: linear-gradient(to right, #00ffff, #1e90ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 5s infinite linear;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .logo-text {
+        font-size: 1.4rem;
+      }
+      
+      nav a span {
+        display: none;
+      }
+      
+      nav a svg {
+        margin-right: 0;
+      }
+      
+      main h1 {
+        font-size: 2.5rem;
+        padding: 0 20px;
+      }
+      
+      .chat-window {
+        top: 20px !important;
+        left: 10px !important;
+        width: calc(100% - 20px) !important;
+        height: calc(100vh - 100px) !important;
+      }
+      
+      .chat-window.maximized {
+        top: 80px !important;
+        height: calc(100vh - 80px) !important;
+      }
+
+      .visitor-counter {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+        bottom: 15px;
+        left: 15px;
+      }
+    }
+
+    /* Resize handles */
+    .resize-handle {
+      position: absolute;
+      background: rgba(0, 255, 255, 0.3);
+      z-index: 10;
+    }
+    
+    .resize-n {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      cursor: ns-resize;
+    }
+    
+    .resize-ne {
+      top: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      cursor: nesw-resize;
+    }
+    
+    .resize-e {
+      top: 0;
+      right: 0;
+      width: 5px;
+      height: 100%;
+      cursor: ew-resize;
+    }
+    
+    .resize-se {
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      cursor: nwse-resize;
+    }
+    
+    .resize-s {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      cursor: ns-resize;
+    }
+    
+    .resize-sw {
+      bottom: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      cursor: nesw-resize;
+    }
+    
+    .resize-w {
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      cursor: ew-resize;
+    }
+    
+    .resize-nw {
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      cursor: nwse-resize;
+    }
+  </style>
+</head>
+
+<body class="text-white">
+  <div id="shootingStarsContainer"></div>
+
+  <nav class="fixed top-0 w-full z-40 backdrop-blur-md bg-white/10 border-b border-gray-300 shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="logo-text">ASHU SAXENA</div>
+      <div class="space-x-8 font-medium flex items-center text-white">
+        <a href="about.html" class="hover:text-cyan-300 flex items-center space-x-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4s-4 1.79-4 4 1.79 4 4 4zM6 20v-2c0-2.21 3.58-4 6-4s6 1.79 6 4v2H6z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="contact.html" class="hover:text-cyan-300 flex items-center space-x-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M3 5h18M3 10h18M3 15h10" />
+          </svg>
+          <span>Contact</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex flex-col items-center justify-center min-h-screen pt-32 text-center px-4">
+    <h1 class="text-6xl font-extrabold text-cyan-300 mb-8 slide-in">Launch the ChatBot</h1>
+    <button onclick="launchChatbot()" class="bg-cyan-500 hover:bg-cyan-400 text-black text-xl font-bold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-110 pulse">
+      Launch ChatBot
+    </button>
+  </main>
+
+  <!-- Visitor Counter -->
+  <div class="visitor-counter">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+    </svg>
+    Visitors: <span class="counter-number" id="visitorCount">0</span>
+  </div>
+
+  <div id="chatContainer" class="chat-window" style="display:none;">
+    <div class="chat-header" id="chatHeader">
+      AI Assistant
+      <div class="controls space-x-2">
+        <button onclick="minimizeChat()">−</button>
+        <button onclick="toggleMaximize()">⬜</button>
+        <button class="close-btn" onclick="closeChatbot()">×</button>
+      </div>
+    </div>
+    <div class="chat-body" id="watsonEmbed"></div>
+    <div class="resize-handle resize-n"></div>
+    <div class="resize-handle resize-ne"></div>
+    <div class="resize-handle resize-e"></div>
+    <div class="resize-handle resize-se"></div>
+    <div class="resize-handle resize-s"></div>
+    <div class="resize-handle resize-sw"></div>
+    <div class="resize-handle resize-w"></div>
+    <div class="resize-handle resize-nw"></div>
+  </div>
+
+  <script>
+    let chatLoaded = false;
+    let isDragging = false;
+    let isResizing = false;
+    let resizeDirection = '';
+    let startX, startY, startWidth, startHeight, startTop, startLeft;
+    let isMaximized = false;
+
+    // Visitor counter functionality
+    function updateVisitorCounter() {
+      // Check if we've already counted this visitor in this session
+      if (!sessionStorage.getItem('visited')) {
+        // Get current count from localStorage or initialize to 0
+        let count = localStorage.getItem('visitorCount') || 0;
+        count = parseInt(count) + 1;
+        
+        // Update localStorage and display
+        localStorage.setItem('visitorCount', count);
+        document.getElementById('visitorCount').textContent = count;
+        
+        // Mark this session as counted
+        sessionStorage.setItem('visited', 'true');
+      } else {
+        // Just display the current count without incrementing
+        let count = localStorage.getItem('visitorCount') || 0;
+        document.getElementById('visitorCount').textContent = count;
+      }
+    }
+
+    // Create shooting stars
+    function createShootingStars() {
+      const container = document.getElementById('shootingStarsContainer');
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          const star = document.createElement('div');
+          star.className = 'shooting-star';
+          star.style.left = `${Math.random() * 100}vw`;
+          star.style.top = `${Math.random() * 100}vh`;
+          star.style.animationDelay = `${Math.random() * 5}s`;
+          container.appendChild(star);
+        }, i * 2000);
+      }
+    }
+
+    // Initialize shooting stars
+    createShootingStars();
+    setInterval(createShootingStars, 10000);
+
+    function launchChatbot() {
+      localStorage.setItem("chatOpen", "true");
+      const chat = document.getElementById("chatContainer");
+      chat.style.display = 'block';
+
+      if (!chatLoaded) {
+        chatLoaded = true;
+        const script = document.createElement('script');
+        script.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
+        document.head.appendChild(script);
+        window.watsonAssistantChatOptions = {
+          integrationID: "03f24879-0681-4a5e-ad03-71ce23e74aab",
+          region: "au-syd",
+          serviceInstanceID: "0d68c174-ab34-4200-b3f9-5a98e6c19a13",
+          element: document.getElementById("watsonEmbed"),
+          onLoad: async (instance) => { await instance.render(); }
+        };
+      }
+    }
+
+    function closeChatbot() {
+      document.getElementById("chatContainer").style.display = "none";
+      localStorage.setItem("chatOpen", "false");
+      isMaximized = false;
+      document.getElementById("chatContainer").classList.remove("maximized");
+    }
+
+    function minimizeChat() {
+      const chat = document.getElementById("chatContainer");
+      chat.style.height = "60px";
+      chat.style.minHeight = "60px";
+    }
+
+    function toggleMaximize() {
+      const chat = document.getElementById("chatContainer");
+      isMaximized = !isMaximized;
+      
+      if (isMaximized) {
+        chat.classList.add("maximized");
+      } else {
+        chat.classList.remove("maximized");
+        // Restore previous size if available
+        chat.style.width = "600px";
+        chat.style.height = "600px";
+      }
+    }
+
+    // Drag functionality
+    function dragElement(elmnt, handle) {
+      handle.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        if (e.target.tagName === 'BUTTON' || isMaximized) return;
+        e.preventDefault();
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = elmnt.offsetLeft;
+        startTop = elmnt.offsetTop;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        if (!isDragging || isMaximized) return;
+        e.preventDefault();
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        elmnt.style.left = (startLeft + dx) + "px";
+        elmnt.style.top = (startTop + dy) + "px";
+      }
+
+      function closeDragElement() {
+        isDragging = false;
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    // Resize functionality
+    function setupResize(elmnt) {
+      const handles = elmnt.querySelectorAll('.resize-handle');
+      
+      handles.forEach(handle => {
+        handle.onmousedown = (e) => {
+          if (isMaximized) return;
+          e.preventDefault();
+          e.stopPropagation();
+          isResizing = true;
+          resizeDirection = handle.className.split(' ')[1].split('-')[1];
+          startX = e.clientX;
+          startY = e.clientY;
+          startWidth = elmnt.offsetWidth;
+          startHeight = elmnt.offsetHeight;
+          startLeft = elmnt.offsetLeft;
+          startTop = elmnt.offsetTop;
+          document.onmouseup = closeResizeElement;
+          document.onmousemove = elementResize;
+        };
+      });
+    }
+
+    function elementResize(e) {
+      if (!isResizing || isMaximized) return;
+      e.preventDefault();
+      
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      const chat = document.getElementById("chatContainer");
+      
+      if (resizeDirection.includes('e')) {
+        chat.style.width = Math.max(300, startWidth + dx) + 'px';
+      }
+      if (resizeDirection.includes('w')) {
+        const newWidth = Math.max(300, startWidth - dx);
+        chat.style.width = newWidth + 'px';
+        chat.style.left = (startLeft + dx) + 'px';
+      }
+      if (resizeDirection.includes('s')) {
+        chat.style.height = Math.max(200, startHeight + dy) + 'px';
+      }
+      if (resizeDirection.includes('n')) {
+        const newHeight = Math.max(60, startHeight - dy);
+        chat.style.height = newHeight + 'px';
+        chat.style.top = (startTop + dy) + 'px';
+      }
+    }
+
+    function closeResizeElement() {
+      isResizing = false;
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+
+    // Mobile touch support
+    function setupTouchEvents() {
+      const chat = document.getElementById("chatContainer");
+      const header = document.getElementById("chatHeader");
+      
+      // Touch drag
+      header.addEventListener('touchstart', touchStart, { passive: false });
+      header.addEventListener('touchmove', touchMove, { passive: false });
+      header.addEventListener('touchend', touchEnd, { passive: false });
+      
+      // Touch resize
+      const resizeHandles = chat.querySelectorAll('.resize-handle');
+      resizeHandles.forEach(handle => {
+        handle.addEventListener('touchstart', resizeTouchStart, { passive: false });
+      });
+      
+      document.addEventListener('touchmove', resizeTouchMove, { passive: false });
+      document.addEventListener('touchend', resizeTouchEnd, { passive: false });
+    }
+    
+    let touchStartX, touchStartY, touchStartLeft, touchStartTop;
+    
+    function touchStart(e) {
+      if (isMaximized) return;
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      const chat = document.getElementById("chatContainer");
+      touchStartLeft = chat.offsetLeft;
+      touchStartTop = chat.offsetTop;
+      e.preventDefault();
+    }
+    
+    function touchMove(e) {
+      if (isMaximized || !touchStartX) return;
+      const touch = e.touches[0];
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      const chat = document.getElementById("chatContainer");
+      chat.style.left = (touchStartLeft + dx) + "px";
+      chat.style.top = (touchStartTop + dy) + "px";
+      e.preventDefault();
+    }
+    
+    function touchEnd() {
+      touchStartX = null;
+      touchStartY = null;
+    }
+    
+    function resizeTouchStart(e) {
+      if (isMaximized) return;
+      const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      const chat = document.getElementById("chatContainer");
+      startWidth = chat.offsetWidth;
+      startHeight = chat.offsetHeight;
+      startLeft = chat.offsetLeft;
+      startTop = chat.offsetTop;
+      resizeDirection = e.target.className.split(' ')[1].split('-')[1];
+      isResizing = true;
+      e.preventDefault();
+    }
+    
+    function resizeTouchMove(e) {
+      if (!isResizing || isMaximized) return;
+      const touch = e.touches[0];
+      elementResize({
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+        preventDefault: () => e.preventDefault()
+      });
+    }
+    
+    function resizeTouchEnd() {
+      isResizing = false;
+    }
+
+    // Initialize
+    dragElement(document.getElementById("chatContainer"), document.getElementById("chatHeader"));
+    setupResize(document.getElementById("chatContainer"));
+    setupTouchEvents();
+    updateVisitorCounter(); // Initialize visitor counter
+
+    if (localStorage.getItem("chatOpen") === "true") {
+      document.getElementById("chatContainer").style.display = 'block';
+      launchChatbot();
+    }
+  </script>
+</body>
+</html>
