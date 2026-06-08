@@ -26,7 +26,7 @@ This project was developed during the IBM Edunet Workshop, where I learned to:
 - Create responsive and dynamic UI/UX with Tailwind CSS and JavaScript
 - Work with persistent browser storage (localStorage/sessionStorage)
 
-- 🌍 Live Demo 🚀 Hosted Here: (https://ashu-chatbot.rf.gd/)
+- 🌍 Live Demo 🚀 Hosted Here: (https://saxena-ashu.github.io/ChatBot/)
 
 ## 📸 Demo
 
